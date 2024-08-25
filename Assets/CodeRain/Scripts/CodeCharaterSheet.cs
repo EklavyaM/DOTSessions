@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DOTSessions.CodeRain
 {
-    public static class CodeSheet
+    public static class CodeCharaterSheet
     {
         private static readonly char[] CharacterSheet = new char[]
             {
@@ -83,9 +83,17 @@ namespace DOTSessions.CodeRain
                 'Z'
             };
 
-        public static string GetRandomCharacter()
+        public static int AvailableCharactersCount => CharacterSheet.Length;
+
+        public static char GetCharacter(int index)
         {
-            return CharacterSheet[Random.Range(0, CharacterSheet.Length)].ToString();
+            return index < 0 || index >= AvailableCharactersCount ? '\0' : CharacterSheet[index];
         }
+
+        public static char GetRandomCharacter()
+        {
+            return CharacterSheet[Random.Range(0, AvailableCharactersCount)];
+        }
+
     }
 }
