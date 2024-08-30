@@ -4,6 +4,10 @@ namespace DOTSessions.CodeRain
 {
     public struct CodeData : IComponentData
     {
-        public char character;
+        public int characterSheetIndex;
+        public float characterOpacity;
+
+        public float characterChangeFrameCounter;
+        public float characterChangeDuration;
     }
 }

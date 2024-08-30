@@ -1,3 +1,4 @@
+using DOTSessions.Common;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
@@ -6,6 +7,9 @@ namespace DOTSessions.CodeRain
 {
     public class CodeRain : MonoBehaviour
     {
+        [Header("Data")]
+        [SerializeField] private MinMax<float> characterChangeDurationRange;
+
         private EntityManager _entityManager;
         private EntityArchetype _codeGeneratorArchetype;
         private EntityQuery _codeEntityQuery;
@@ -33,7 +37,10 @@ namespace DOTSessions.CodeRain
             foreach (Entity entity in codeEntities)
             {
                 CodeData codeData = _entityManager.GetComponentData<CodeData>(entity);
-                _codes[index++].Text = codeData.character.ToString(); // this will cause gc alloc
+                _codes[index].Text = CodeCharacterSheet.GetCharacter(codeData.characterSheetIndex);
+                _codes[index].Alpha = codeData.characterOpacity;
+
+                ++index;
             }
 
             codeEntities.Dispose();
@@ -44,7 +51,11 @@ namespace DOTSessions.CodeRain
             _codes = codeUIs;
 
             Entity entity = _entityManager.CreateEntity(_codeGeneratorArchetype);
-            _entityManager.SetComponentData(entity, new CodeGeneratorData() { entityCount = codeUIs.Length });
+            _entityManager.SetComponentData(entity, new CodeGeneratorData()
+            {
+                entityCount = codeUIs.Length,
+                characterChangeDurationRange = characterChangeDurationRange
+            });
         }
     }
 }

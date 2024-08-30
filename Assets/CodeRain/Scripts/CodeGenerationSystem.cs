@@ -19,7 +19,14 @@ namespace DOTSessions.CodeRain
             for (int i = 0; i < generatorData.entityCount; ++i)
             {
                 Entity codeEntity = commandBuffer.CreateEntity();
-                commandBuffer.AddComponent(codeEntity, new CodeData() { character = CodeCharaterSheet.GetRandomCharacter() });
+
+                commandBuffer.AddComponent(codeEntity, new CodeData()
+                {
+                    characterSheetIndex = CodeCharacterSheet.GetRandomIndex(),
+                    characterChangeFrameCounter = 0,
+                    characterChangeDuration = UnityEngine.Random.Range(generatorData.characterChangeDurationRange.min, generatorData.characterChangeDurationRange.max),
+                    characterOpacity = 0
+                });
             };
 
             commandBuffer.Playback(state.EntityManager);

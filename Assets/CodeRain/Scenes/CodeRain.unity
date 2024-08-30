@@ -500,7 +500,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 20, y: 20}
+  m_CellSize: {x: 15, y: 15}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -633,6 +633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c965aecc9b577e44b6dc54e4cb7f67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterChangeDurationRange:
+    min: 0.05
+    max: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

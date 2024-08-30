@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -35,7 +36,16 @@ namespace DOTSessions.CodeRain
                 codes[i] = Instantiate(prefab, gridRect).GetComponent<CodeUI>();
             }
 
+            _ = StartCoroutine(DestroyGrid());
+
             OnCodeGenerated?.Invoke(codes);
+        }
+
+        private IEnumerator DestroyGrid()
+        {
+            yield return null;
+
+            Destroy(gridLayout);
         }
     }
 }
