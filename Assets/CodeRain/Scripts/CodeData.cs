@@ -1,3 +1,4 @@
+using DOTSessions.Common;
 using Unity.Entities;
 
 namespace DOTSessions.CodeRain
@@ -6,6 +7,8 @@ namespace DOTSessions.CodeRain
     {
         public int characterSheetIndex;
         public float characterOpacity;
+
+        public MinMax<float> characterChangeDurationRange;
 
         public float characterChangeFrameCounter;
         public float characterChangeDuration;

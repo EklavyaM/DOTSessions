@@ -1,4 +1,3 @@
-using DOTSessions.Common;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -6,9 +5,8 @@ using Unity.Mathematics;
 namespace DOTSessions.CodeRain
 {
     [BurstCompile]
-    public partial struct CodeDataUpdateJob : IJobEntity
+    public partial struct CodeDataCharacterUpdateJob : IJobEntity
     {
-        public MinMax<float> characterDurationChange;
         public int availableCharactersCount;
         public float deltaTime;
         public Random random;
@@ -18,7 +16,7 @@ namespace DOTSessions.CodeRain
             codeData.characterChangeFrameCounter += deltaTime;
             if (codeData.characterChangeFrameCounter > codeData.characterChangeDuration)
             {
-                codeData.characterChangeDuration = random.NextFloat(characterDurationChange.min, characterDurationChange.max);
+                codeData.characterChangeDuration = random.NextFloat(codeData.characterChangeDurationRange.min, codeData.characterChangeDurationRange.max);
                 codeData.characterChangeFrameCounter = 0;
                 codeData.characterSheetIndex = random.NextInt(0, availableCharactersCount);
                 codeData.characterOpacity = random.NextFloat();

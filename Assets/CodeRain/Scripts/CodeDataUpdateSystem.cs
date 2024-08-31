@@ -11,12 +11,9 @@ namespace DOTSessions.CodeRain
 
         public void OnUpdate(ref SystemState state)
         {
-            CodeGeneratorData generatorData = SystemAPI.GetSingleton<CodeGeneratorData>();
-
-            CodeDataUpdateJob job = new()
+            CodeDataCharacterUpdateJob job = new()
             {
                 deltaTime = SystemAPI.Time.DeltaTime,
-                characterDurationChange = generatorData.characterChangeDurationRange,
                 availableCharactersCount = CodeCharacterSheet.AvailableCharactersCount,
                 random = new Unity.Mathematics.Random(1)
             };

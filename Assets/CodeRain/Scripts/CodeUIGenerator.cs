@@ -34,6 +34,7 @@ namespace DOTSessions.CodeRain
             for (int i = 0; i < cellCount; ++i)
             {
                 codes[i] = Instantiate(prefab, gridRect).GetComponent<CodeUI>();
+                codes[i].Alpha = 0f;
             }
 
             _ = StartCoroutine(DestroyGrid());

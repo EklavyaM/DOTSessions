@@ -1,5 +1,4 @@
 using DOTSessions.Common;
-using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -11,51 +10,36 @@ namespace DOTSessions.CodeRain
         [SerializeField] private MinMax<float> characterChangeDurationRange;
 
         private EntityManager _entityManager;
-        private EntityArchetype _codeGeneratorArchetype;
-        private EntityQuery _codeEntityQuery;
-
-        private CodeUI[] _codes;
-
         private void Awake()
         {
             _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            _codeGeneratorArchetype = _entityManager.CreateArchetype(typeof(CodeGeneratorData));
-            _codeEntityQuery = _entityManager.CreateEntityQuery(typeof(CodeData));
-        }
-
-        private void Update()
-        {
-            if (_codes == null)
-            {
-                return;
-            }
-
-            NativeArray<Entity> codeEntities = _codeEntityQuery.ToEntityArray(Unity.Collections.Allocator.TempJob);
-
-            int index = 0;
-
-            foreach (Entity entity in codeEntities)
-            {
-                CodeData codeData = _entityManager.GetComponentData<CodeData>(entity);
-                _codes[index].Text = CodeCharacterSheet.GetCharacter(codeData.characterSheetIndex);
-                _codes[index].Alpha = codeData.characterOpacity;
-
-                ++index;
-            }
-
-            codeEntities.Dispose();
         }
 
         public void OnCodeGenerated(CodeUI[] codeUIs)
         {
-            _codes = codeUIs;
+            EntityCommandBuffer commandBuffer = new(_entityManager.World.UpdateAllocator.Handle);
 
-            Entity entity = _entityManager.CreateEntity(_codeGeneratorArchetype);
-            _entityManager.SetComponentData(entity, new CodeGeneratorData()
+            for (int i = 0; i < codeUIs.Length; ++i)
             {
-                entityCount = codeUIs.Length,
-                characterChangeDurationRange = characterChangeDurationRange
-            });
+                Entity codeEntity = commandBuffer.CreateEntity();
+
+                commandBuffer.AddComponent(codeEntity, new CodeData()
+                {
+                    characterSheetIndex = CodeCharacterSheet.GetRandomIndex(),
+                    characterChangeDurationRange = characterChangeDurationRange,
+                    characterChangeFrameCounter = 0,
+                    characterChangeDuration = UnityEngine.Random.Range(characterChangeDurationRange.min, characterChangeDurationRange.max),
+                    characterOpacity = 0,
+                });
+
+                commandBuffer.AddComponent(codeEntity, new CodeUIReference()
+                {
+                    codeUI = codeUIs[i],
+                });
+            };
+
+            commandBuffer.Playback(_entityManager);
+            commandBuffer.Dispose();
         }
     }
 }
