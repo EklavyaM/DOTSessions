@@ -657,9 +657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c965aecc9b577e44b6dc54e4cb7f67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomSeed: 1
   characterChangeDurationRange:
-    min: 0.05
-    max: 1
+    min: 0.25
+    max: 1.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

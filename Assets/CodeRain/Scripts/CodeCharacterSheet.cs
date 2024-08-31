@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace DOTSessions.CodeRain
 {
     public static class CodeCharacterSheet
@@ -83,22 +81,11 @@ namespace DOTSessions.CodeRain
                 'Z'.ToString()
             };
 
-        public static int AvailableCharactersCount = CharacterSheet.Length;
+        public static readonly int AvailableCharactersCount = CharacterSheet.Length;
 
         public static string GetCharacter(int index)
         {
             return index < 0 || index >= AvailableCharactersCount ? '\0'.ToString() : CharacterSheet[index];
         }
-
-        public static string GetRandomCharacter()
-        {
-            return CharacterSheet[GetRandomIndex()];
-        }
-
-        public static int GetRandomIndex()
-        {
-            return Random.Range(0, AvailableCharactersCount);
-        }
-
     }
 }

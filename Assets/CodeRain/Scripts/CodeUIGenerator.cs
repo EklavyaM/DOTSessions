@@ -14,7 +14,7 @@ namespace DOTSessions.CodeRain
         [SerializeField] private GridLayoutGroup gridLayout;
 
         [Header("Events")]
-        public UnityEvent<CodeUI[]> OnCodeGenerated;
+        public UnityEvent<CodeUI[], Vector2Int> OnCodeGenerated;
 
         private void Start()
         {
@@ -39,7 +39,7 @@ namespace DOTSessions.CodeRain
 
             _ = StartCoroutine(DestroyGrid());
 
-            OnCodeGenerated?.Invoke(codes);
+            OnCodeGenerated?.Invoke(codes, new Vector2Int(horizontal, vertical));
         }
 
         private IEnumerator DestroyGrid()
