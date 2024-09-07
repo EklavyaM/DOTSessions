@@ -7,8 +7,13 @@ namespace DOTSessions.CodeRain.Mono
     {
         [Header("Components")]
         [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private CanvasGroup canvasGroup;
 
         public string Text { set => text.text = value; }
-        public float Alpha { set => text.alpha = value; get => text.alpha; }
+        public float Alpha
+        {
+            set => canvasGroup.alpha = value;
+            get => canvasGroup.alpha;
+        }
     }
 }

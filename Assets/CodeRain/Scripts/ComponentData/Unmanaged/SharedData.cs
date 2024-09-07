@@ -9,6 +9,9 @@ namespace DOTSessions.CodeRain.ComponentData.Unmanaged
         public Random rng;
 
         public MinMax<float> characterUpdateDurationRange;
+        public MinMax<float> columnUpdateDurationRange;
+        public MinMax<float> dissipationRateRange;
+
         public int maxCharacters;
     }
 }

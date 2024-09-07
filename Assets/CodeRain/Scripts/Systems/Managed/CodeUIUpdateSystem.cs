@@ -3,11 +3,10 @@ using DOTSessions.CodeRain.Mono;
 using DOTSessions.CodeRain.Shared;
 using DOTSessions.CodeRain.Systems.Unmanaged;
 using Unity.Entities;
-using UnityEngine;
 
 namespace DOTSessions.CodeRain.Systems.Managed
 {
-    [UpdateAfter(typeof(CharacterUpdateSystem))]
+    [UpdateAfter(typeof(AlphaUpdateSystem))]
     public partial class CodeUIUpdateSystem : SystemBase
     {
         protected override void OnCreate()
@@ -24,7 +23,7 @@ namespace DOTSessions.CodeRain.Systems.Managed
                 CodeUI codeUI = gridData.grid[codePosition.gridIndex];
 
                 codeUI.Text = CharacterSheet.GetCharacter(codeCharacter.characterIndex);
-                codeUI.Alpha = Mathf.MoveTowards(codeUI.Alpha, codeAlpha.alpha, SystemAPI.Time.DeltaTime);
+                codeUI.Alpha = codeAlpha.alpha;
             }).WithoutBurst().Run();
         }
     }
